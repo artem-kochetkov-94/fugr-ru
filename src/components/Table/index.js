@@ -1,49 +1,24 @@
 import React from "react";
 import Loader from "../Loader";
-import Pagination from "react-js-pagination";
 
 class Table extends React.Component {
-  componentDidMount() {
-    const { loaded, loading, fetchCustomers } = this.props;
-
-    if (!loaded && !loading) fetchCustomers();
-  }
-
-  handlePageChange = pageNumber => {
-    console.log(`active page is ${pageNumber}`);
-    this.props.setActivePage(pageNumber);
-  };
-
   render() {
     const {
       customers,
       setActiveCustomer,
-      loading,
       activeCustomer,
       sortCustomers,
       sorted,
-      activePage,
-      itemsCountPerPage
+      loading,
+      loaded
     } = this.props;
 
     if (loading) return <Loader />;
 
-    const customersArray = customers.sorted ? customers.sorted : customers.all;
-
-    const customersPerPage = customersArray.slice(
-      (activePage - 1) * itemsCountPerPage,
-      activePage * itemsCountPerPage
-    );
+    if (!loaded) return null;
 
     return (
       <div>
-        <Pagination
-          activePage={activePage}
-          itemsCountPerPage={itemsCountPerPage}
-          totalItemsCount={customersArray.length}
-          pageRangeDisplayed={5}
-          onChange={this.handlePageChange}
-        />
         <table>
           <thead>
             <tr>
@@ -74,8 +49,8 @@ class Table extends React.Component {
             </tr>
           </thead>
           <tbody>
-            {customersPerPage &&
-              customersPerPage.map((customer, index) => (
+            {customers &&
+              customers.map(customer => (
                 <tr
                   key={customer.id}
                   onClick={() => setActiveCustomer(customer)}

@@ -1,28 +1,6 @@
 import React from "react";
 
 class ActiveCustomer extends React.Component {
-  // state = {
-  //   description: ""
-  // };
-
-  // componentWillMount() {
-  //   const { customer } = this.props;
-  //   if (this.state.description !== customer.description) {
-  //     this.setState({
-  //       description: customer.description
-  //     });
-  //   }
-  // }
-
-  // componentWillUpdate() {
-  //   const { customer } = this.props;
-  //   if (this.state.description !== customer.description) {
-  //     this.setState({
-  //       description: customer.description
-  //     });
-  //   }
-  // }
-
   descriptionHandleChange = customer => e => {
     this.props.setActiveCustomer({
       ...customer,
@@ -32,7 +10,6 @@ class ActiveCustomer extends React.Component {
 
   render() {
     const customer = this.props.customer;
-    console.log(customer);
 
     return (
       <div>
